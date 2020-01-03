@@ -2,9 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>支付测试</title>
+    <script type="text/javascript" src="./jquery/jquery-3.3.1.min.js"></script>
+    <style type="text/css">
+		html{
+            height: 100%;
+        }
+        body.pay-bg {
+            color: #777;
+            height: 100%;
+            background-image: url("./img/bg.jpeg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: top center;
+        }
+
+    	#pay-wrapper {
+            box-sizing:border-box;
+            background: #fff;
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            margin-top: -210px;
+            margin-left: -220px;
+            width: 440px;
+            min-height: 420px;
+            padding: 50px;
+            text-align: center;
+            border-radius: 5px;
+
+            transform-origin: 50% 50%;
+            animation: loading 1s 0s forwards;
+            transform: rotateX(0deg);
+        }
+
+        #orderId {
+        	box-sizing: border-box;
+        	padding-left: 30px;
+        	font-size: large;
+        	height: 80px;
+        	width: 100%;
+ 			border: 1px solid #c8cccf;
+        }
+        #pay {
+        	color: #fff;
+        	margin-top: 50px;
+        	height: 300px;
+        	width: 100%;
+        	background-color: #0767aa;
+			font-size: 20px;
+			border-radius: 4px;
+			height: 52px;
+        }
+    </style>
 </head>
-<body>
-<h1>Hello World</h1>
+<body class="pay-bg">
+<div id="pay-wrapper">
+	<input id="orderId" type="text" placeholder="订单号"/><br>
+	<button id="pay" onclick="pay()">支付</button>
+</div>
 </body>
+<script>
+	$(function () {
+		
+	});
+
+	function pay(){
+		var orderId = $('#orderId').val();
+		$.ajax({  
+	        type : "GET",  
+	        async: false,  
+	        url : "http://zg.hzddbb.com/paytest/wx/h5?no="+orderId,  
+	        // dataType : "jsonp",//数据类型为jsonp  
+	        // jsonp: "jsonpCallback",//服务端用于接收callback调用的function名的参数  
+	        success : function(data){  
+	            console.log(data);
+	        },  
+	        error:function(){  
+	            alert('服务器异常');  
+	        }  
+   		});   
+	}
+</script>
 </html>
