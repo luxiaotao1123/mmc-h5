@@ -79,7 +79,7 @@
 		var redirect_url = $('#redirect_url').val();
         var en_redirect_url
 		if (referer === null || referer === '' || typeof referer == "undefined") {
-            en_redirect_url = '';
+            en_redirect_url = '&redirect_url=' + encodeURIComponent('http://zg.hzddbb.com/success.html');
         } else {
             en_redirect_url = '&redirect_url=' + encodeURIComponent(redirect_url);
         }
