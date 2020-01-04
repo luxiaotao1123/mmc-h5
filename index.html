@@ -84,9 +84,10 @@
 	        url : "http://zg.hzddbb.com:8080/paytest/wx/h5?no="+orderId,  
 	        // dataType : "jsonp",//数据类型为jsonp  
 	        // jsonp: "jsonpCallback",//服务端用于接收callback调用的function名的参数  
-	        success : function(data){ 
+	        success : function(data){
+                window.location.href = data;
 	        	console.log(data);
-	            toWechat(data, referer);
+	            // toWechat(data, referer);
 	        },  
 	        error:function(){  
 	            alert('服务器异常');  
