@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>支付测试</title>
+    <title>微信h5支付测试</title>
     <script type="text/javascript" src="./jquery/jquery-3.3.1.min.js"></script>
     <style type="text/css">
 		html{
@@ -40,7 +40,16 @@
         	box-sizing: border-box;
         	padding-left: 30px;
         	font-size: large;
-        	height: 80px;
+        	height: 50px;
+        	width: 100%;
+ 			border: 1px solid #c8cccf;
+        }
+        #referer {
+        	margin-top: 20px;
+        	box-sizing: border-box;
+        	padding-left: 30px;
+        	font-size: large;
+        	height: 50px;
         	width: 100%;
  			border: 1px solid #c8cccf;
         }
@@ -58,24 +67,45 @@
 </head>
 <body class="pay-bg">
 <div id="pay-wrapper">
-	<input id="orderId" type="text" placeholder="订单号"/><br>
+	<input id="orderId" type="text" placeholder="订单号" autocomplete="on" /><br>
+	<input id="referer" type="text" placeholder="认证域名" autocomplete="on"/><br>
 	<button id="pay" onclick="pay()">支付</button>
 </div>
 </body>
 <script>
-	$(function () {
-		
-	});
-
 	function pay(){
 		var orderId = $('#orderId').val();
+		if (orderId === null || orderId === '' || typeof orderId == "undefined") {alert('订单号不能为空');return;}
+		var referer = $('#referer').val();
+		// if (referer === null || referer === '' || typeof referer == "undefined") {alert('认证域名不能为空');return;}
 		$.ajax({  
 	        type : "GET",  
 	        async: false,  
-	        url : "http://zg.hzddbb.com/paytest/wx/h5?no="+orderId,  
+	        url : "http://localhost/paytest/wx/h5?no="+orderId,  
 	        // dataType : "jsonp",//数据类型为jsonp  
 	        // jsonp: "jsonpCallback",//服务端用于接收callback调用的function名的参数  
-	        success : function(data){  
+	        success : function(data){ 
+	        	console.log(data);
+	            toWechat(data, referer);
+	        },  
+	        error:function(){  
+	            alert('服务器异常');  
+	        }  
+   		});   
+	}
+
+	function toWechat(url, referer) {
+
+		console.log(url);
+		$.ajax({  
+	        type : "GET",
+	  //       beforeSend: function(xhr) {
+			// 	xhr.setRequestHeader('referer',referer);
+			// },
+	        headers: {referer1:"http://zg.hzddbb.com"},
+	        async: false,  
+	        url : url,  
+	        success : function(data){ 
 	            console.log(data);
 	        },  
 	        error:function(){  
@@ -83,5 +113,8 @@
 	        }  
    		});   
 	}
+
+
+
 </script>
 </html>
