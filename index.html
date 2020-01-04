@@ -78,7 +78,7 @@
 		if (orderId === null || orderId === '' || typeof orderId == "undefined") {alert('订单号不能为空');return;}
 		var redirect_url = $('#redirect_url').val();
         var en_redirect_url
-		if (referer === null || referer === '' || typeof referer == "undefined") {
+		if (redirect_url === null || redirect_url === '' || typeof redirect_url == "undefined") {
             en_redirect_url = '&redirect_url=' + encodeURIComponent('http://zg.hzddbb.com/success.html');
         } else {
             en_redirect_url = '&redirect_url=' + encodeURIComponent(redirect_url);
