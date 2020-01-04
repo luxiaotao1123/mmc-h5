@@ -40,11 +40,11 @@
         	box-sizing: border-box;
         	padding-left: 30px;
         	font-size: large;
-        	height: 80px;
+        	height: 50px;
         	width: 100%;
  			border: 1px solid #c8cccf;
         }
-        #referer {
+        #redirect_url {
         	margin-top: 20px;
         	box-sizing: border-box;
         	padding-left: 30px;
@@ -68,7 +68,7 @@
 <body class="pay-bg">
 <div id="pay-wrapper">
 	<input id="orderId" type="text" placeholder="订单号" autocomplete="on" /><br>
-	<!-- <input id="referer" type="text" placeholder="认证域名" autocomplete="on"/><br> -->
+	<input id="redirect_url" type="text" placeholder="同步回调地址" autocomplete="on"/><br>
 	<button id="pay" onclick="pay()">支付</button>
 </div>
 </body>
@@ -76,15 +76,22 @@
 	function pay(){
 		var orderId = $('#orderId').val();
 		if (orderId === null || orderId === '' || typeof orderId == "undefined") {alert('订单号不能为空');return;}
-		var referer = $('#referer').val();
-		// if (referer === null || referer === '' || typeof referer == "undefined") {alert('认证域名不能为空');return;}
+		var redirect_url = $('#redirect_url').val();
+        var en_redirect_url
+		if (referer === null || referer === '' || typeof referer == "undefined") {
+            en_redirect_url = '';
+        } else {
+            en_redirect_url = '&redirect_url=' + encodeURIComponent(redirect_url);
+        }
+
+
+
 		$.ajax({  
 	        type : "GET",  
 	        async: false,  
 	        url : "http://zg.hzddbb.com:8080/paytest/wx/h5?no="+orderId,  
 	        success : function(data){
-                window.location.href = data;
-	        	console.log(data);
+                window.location.href = data + en_redirect_url;
 	        },  
 	        error:function(){  
 	            alert('服务器异常');  
